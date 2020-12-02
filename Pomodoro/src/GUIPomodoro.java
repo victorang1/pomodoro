@@ -19,6 +19,7 @@ import javax.swing.Timer;
 
 import components.ContentPane;
 import components.PomodoroFrame;
+import state.Progress;
 
 public class GUIPomodoro implements ActionListener{
 
@@ -50,22 +51,10 @@ public class GUIPomodoro implements ActionListener{
 		JPanel actionPane = ContentPane.getActionPane(btnPause);
 		
 		contentPane.add(actionPane);
+		
+		Progress progress = Progress.getInstance();
 
-		statePane = new JPanel();
-		statePane.setLayout(new BoxLayout(statePane, BoxLayout.LINE_AXIS));
-		statePane.setBackground(new Color(229, 80, 57));
-
-		initCircleIndicator();
-		int index = 0;
-		for(JLabel label: circleIndicator) {
-			statePane.add(label);
-			if (index != circleIndicator.size() - 1) {
-				statePane.add(Box.createRigidArea(new Dimension(3, 0)));
-				index++;
-			}
-		}
-
-		contentPane.add(statePane);
+		contentPane.add(progress.newIndicatorPane());
 
 		JPanel viewStatsPane = new JPanel();
 		viewStatsPane.setLayout(new BoxLayout(viewStatsPane, BoxLayout.LINE_AXIS));
@@ -107,19 +96,6 @@ public class GUIPomodoro implements ActionListener{
 		btnSkip.setContentAreaFilled(false);
 		btnSkip.setIcon(new ImageIcon(GUIPomodoro.class.getResource("/res/skip.png")));
 		btnSkip.addActionListener(this);
-	}
-
-	public void initCircleIndicator() {
-		for (int i = 0; i < 4; i++) {
-			JLabel indicatorLabel = new JLabel();
-			if (i == 0) {
-				indicatorLabel.setIcon(new ImageIcon(GUIPomodoro.class.getResource("/res/twotone_dot.png")));
-			}
-			else {
-				indicatorLabel.setIcon(new ImageIcon(GUIPomodoro.class.getResource("/res/outline_dot.png")));
-			}
-				circleIndicator.add(indicatorLabel);
-		}
 	}
 
 	@Override
