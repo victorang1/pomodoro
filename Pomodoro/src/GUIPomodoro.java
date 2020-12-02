@@ -29,6 +29,7 @@ public class GUIPomodoro implements ActionListener{
 	JButton btnPlay, btnPause, btnSkip;
 	Timer timer;
 	int count=1;
+	ArrayList<JLabel> circleIndicator = new ArrayList<>();
 	
 	public GUIPomodoro() {
 		contentPane = new JPanel();
