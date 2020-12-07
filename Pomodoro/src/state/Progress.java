@@ -1,6 +1,5 @@
 package state;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -10,7 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Progress {
+import event.Observer;
+
+public class Progress implements Observer {
 
     private static Progress instance;
     private JPanel currentPane;
@@ -58,12 +59,10 @@ public class Progress {
         circleIndicator.clear();
         for (int i = 0; i < state.currentStateNumber; i++) {
             JLabel indicatorLabel = new JLabel();
-            if (state instanceof Work) {
+            if (i == state.currentStateNumber - 1 && state instanceof Work) {
                 indicatorLabel.setIcon(new ImageIcon(Progress.class.getResource("../res/twotone_dot.png")));
             }
-            else {
-                indicatorLabel.setIcon(new ImageIcon(Progress.class.getResource("../res/filled_dot.png")));
-            }
+            else indicatorLabel.setIcon(new ImageIcon(Progress.class.getResource("../res/filled_dot.png")));
             circleIndicator.add(indicatorLabel);
         }
 
@@ -72,5 +71,10 @@ public class Progress {
             indicatorLabel.setIcon(new ImageIcon(Progress.class.getResource("../res/outline_dot.png")));
             circleIndicator.add(indicatorLabel);
         }
+    }
+
+    @Override
+    public void update() {
+        this.changeState();
     }
 }
