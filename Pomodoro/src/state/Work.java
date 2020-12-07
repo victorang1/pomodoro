@@ -9,9 +9,14 @@ public class Work extends PomodoroState {
     }
 
     @Override
-    protected Double getTimer() {
-        return 25.0;
-    }
+    protected int getTimer() {
+        return 25;
+	}
+	
+	@Override
+	protected Color getColor() {
+		return Color.RED;
+	}
 
     @Override
     public PomodoroState nextState() {
@@ -21,10 +26,5 @@ public class Work extends PomodoroState {
         else {
             return new Break(currentStateNumber);
         }
-    }
-
-    @Override
-    protected Color getColor() {
-        return new Color(229, 80, 57);
     }
 }
