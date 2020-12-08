@@ -42,8 +42,8 @@ public class GUIPomodoro {
 		createComponents();
 		
 		//set the state
-		podomoroState = new Break(this);
-//		podomoroState = new Work(this);
+//		podomoroState = new Break(this);
+		podomoroState = new Work(this);
 		
 		//populate main content
 		contentPane.add(timerLabel);
@@ -76,7 +76,7 @@ public class GUIPomodoro {
 		actionPane.add(btnSkip);
 
 		
-		//create view stat 
+		//create view state 
 		viewStatsPane = new JPanel();
 		viewStatsPane.setLayout(new BoxLayout(viewStatsPane, BoxLayout.LINE_AXIS));
 		viewStatsLabel = new JLabel("view stats");
@@ -88,7 +88,7 @@ public class GUIPomodoro {
 		indicatorPane = IndicatorPane.getInstance().getStatePane();
 	}
 
-	public static void main(String[] args) {
-		new GUIPomodoro();
-	}
+//	public static void main(String[] args) {
+//		new GUIPomodoro();
+//	}
 }
