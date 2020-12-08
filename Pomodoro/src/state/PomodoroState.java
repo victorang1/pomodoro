@@ -2,15 +2,19 @@ package state;
 
 import java.awt.Color;
 
+import GUI.GUIPomodoro;
+
 public abstract class PomodoroState {
 
-    protected Integer currentStateNumber;
-
-    protected abstract int getTimer();
-    protected abstract Color getColor();
-    public abstract PomodoroState nextState();
+    protected GUIPomodoro guiPomodoro;
      
-    public PomodoroState(Integer currentStateNumber) {
-        this.currentStateNumber = currentStateNumber;
+    public PomodoroState(GUIPomodoro guiPomodoro) {
+        this.guiPomodoro = guiPomodoro;
+        
+        setBackGroundColor();
+        setDisplayComponents();
     }
+    
+    public abstract void setBackGroundColor();
+    public abstract void setDisplayComponents();
 }

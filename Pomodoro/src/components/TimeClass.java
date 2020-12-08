@@ -6,6 +6,8 @@ import javax.swing.Timer;
 import event.Observable;
 import event.Observer;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,11 +15,19 @@ import java.util.ArrayList;
 public class TimeClass extends JLabel implements Observable, ActionListener {
 
     private Timer timer;
-    private ArrayList<Observer> observers;
     private int counter;
+    
+    private ArrayList<Observer> observers;    
     
     public TimeClass(int counter) {
         setText(String.valueOf(counter));
+        
+		setFont(new Font("Verdana", Font.PLAIN, 45));
+		setForeground(Color.BLACK);
+		setBounds(0, 0, 130, 80);
+		setAlignmentX(JLabel.CENTER_ALIGNMENT);
+		createTimer();
+		
         this.counter = counter;
         this.observers = new ArrayList<>();
     }
