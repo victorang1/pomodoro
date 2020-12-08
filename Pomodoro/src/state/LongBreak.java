@@ -1,18 +1,25 @@
 package state;
 
+import GUI.GUIPomodoro;
+
 public class LongBreak extends Break {
     
-    public LongBreak(Integer currentStateNumber) {
-        super(currentStateNumber);
+    public LongBreak(GUIPomodoro guiPomodoro) {
+        super(guiPomodoro);
     }
 
+//    @Override
+//    protected int getTimer() {
+//        return 50;
+//    }
+//
+//    @Override
+//    public PomodoroState nextState() {
+//        return new Work(1);
+//    }
     @Override
-    protected int getTimer() {
-        return 50;
-    }
-
-    @Override
-    public PomodoroState nextState() {
-        return new Work(1);
-    }
+    public void setDisplayComponents() {
+		// TODO Auto-generated method stub
+		
+	}
 }
