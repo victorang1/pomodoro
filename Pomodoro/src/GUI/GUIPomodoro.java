@@ -17,11 +17,12 @@ import components.PlayButton;
 import components.PomodoroFrame;
 import components.SkipButton;
 import components.TimeClass;
+import event.Observer;
 import state.Break;
 import state.PomodoroState;
 import state.Work;
 
-public class GUIPomodoro {
+public class GUIPomodoro implements Observer {
 	public JFrame frame;
 	public JLabel label, viewStatsLabel;
 	public TimeClass timerLabel;
@@ -30,7 +31,7 @@ public class GUIPomodoro {
 	public Timer timer;
 	int count=1;
 	public ArrayList<JLabel> circleIndicator = new ArrayList<>();
-	private PomodoroState podomoroState;
+	private PomodoroState pomodoroState;
 	
 	public GUIPomodoro() {			
 		//init main pane
@@ -43,7 +44,7 @@ public class GUIPomodoro {
 		
 		//set the state
 //		podomoroState = new Break(this);
-		podomoroState = new Work(this);
+		pomodoroState = new Work(this);
 		
 		//populate main content
 		contentPane.add(timerLabel);
@@ -57,7 +58,8 @@ public class GUIPomodoro {
 
 	private void createComponents() {
 		//create timer
-		timerLabel = new TimeClass(15);
+		timerLabel = new TimeClass();
+		timerLabel.addObserver(this);
 
 		//create action button
 		btnPause = new PauseButton().getButton();
@@ -81,6 +83,7 @@ public class GUIPomodoro {
 		viewStatsPane.setLayout(new BoxLayout(viewStatsPane, BoxLayout.LINE_AXIS));
 		viewStatsLabel = new JLabel("view stats");
 		viewStatsLabel.setForeground(Color.BLACK);
+		viewStatsPane.setOpaque(false);
 		viewStatsPane.add(Box.createHorizontalGlue());
 		viewStatsPane.add(viewStatsLabel);
 
@@ -88,6 +91,11 @@ public class GUIPomodoro {
 		indicatorPane = IndicatorPane.getInstance().getStatePane();
 	}
 
+	@Override
+	public void update() {
+		pomodoroState = pomodoroState.nextState();
+		timerLabel.refreshTimerText(pomodoroState.getTimer());
+	}	
 //	public static void main(String[] args) {
 //		new GUIPomodoro();
 //	}

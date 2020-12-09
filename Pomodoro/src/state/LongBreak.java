@@ -1,6 +1,7 @@
 package state;
 
 import GUI.GUIPomodoro;
+import java.awt.Color;
 
 public class LongBreak extends Break {
     
@@ -8,18 +9,14 @@ public class LongBreak extends Break {
         super(guiPomodoro);
     }
 
-//    @Override
-//    protected int getTimer() {
-//        return 50;
-//    }
-//
-//    @Override
-//    public PomodoroState nextState() {
-//        return new Work(1);
-//    }
+    @Override
+    public int getTimer() {
+        return 3;
+    }
+
+    
     @Override
     public void setDisplayComponents() {
-		// TODO Auto-generated method stub
-		
+		guiPomodoro.contentPane.setBackground(Color.GREEN);
 	}
 }

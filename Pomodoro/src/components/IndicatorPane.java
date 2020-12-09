@@ -18,23 +18,14 @@ public class IndicatorPane extends JPanel{
 	
 	public IndicatorPane() {
 		circleIndicator = new ArrayList<>();
-		currentCycleIdx = 0; 
+		currentCycleIdx = 1; 
         statePane = new JPanel();
 		
         statePane.setLayout(new BoxLayout(statePane, BoxLayout.LINE_AXIS));
         statePane.setOpaque(false);
 	     
         //create indicator
-        for (int i = 0; i < 4; i++) {
-            JLabel indicatorLabel = new JLabel();
-            
-            ImageIcon ic = (i != currentCycleIdx) ? new OutlineDotIndicator().getImageIcon() :
-            	new TwoToneDotIndicator().getImageIcon();
-            
-            indicatorLabel.setIcon(ic);            
-            
-			statePane.add(indicatorLabel);
-        }
+        refreshPane();
 	}
 	
     public synchronized static IndicatorPane getInstance() {
@@ -48,4 +39,26 @@ public class IndicatorPane extends JPanel{
     	return statePane;
     }
       
+    public void incrementCycle() {
+        currentCycleIdx++;
+        refreshPane();
+    }
+
+    public int getCurrentIndex() {
+        return currentCycleIdx;
+    }
+
+    private void refreshPane() {
+        statePane.removeAll();
+        for (int i = 0; i < 4; i++) {
+            JLabel indicatorLabel = new JLabel();
+            
+            ImageIcon ic = (i != currentCycleIdx) ? new OutlineDotIndicator().getImageIcon() :
+            	new TwoToneDotIndicator().getImageIcon();
+            
+            indicatorLabel.setIcon(ic);            
+            
+			statePane.add(indicatorLabel);
+        }
+    }
 }
