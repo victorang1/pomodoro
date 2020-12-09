@@ -3,6 +3,7 @@ package state;
 import java.awt.Color;
 
 import GUI.GUIPomodoro;
+import components.IndicatorPane;
 
 public class Work extends PomodoroState {
     
@@ -10,36 +11,30 @@ public class Work extends PomodoroState {
         super(guiPomodoro);
     }
 
-//    @Override
-//    protected int getTimer() {
-//        return 25;
-//	}
-//	
-//	@Override
-//	protected Color getColor() {
-//		return Color.RED;
-//	}
-//
-//    @Override
-//    public PomodoroState nextState() {
-//        if (currentStateNumber == 4) {
-//            return new LongBreak(currentStateNumber);
-//        }
-//        else {
-//            return new Break(currentStateNumber);
-//        }
-//    }
+	@Override
+	public int getTimer() {
+       return 1;
+	}
+
+	@Override
+	public PomodoroState nextState() {
+		IndicatorPane.getInstance().incrementCycle();
+		if (IndicatorPane.getInstance().getCurrentIndex() % 8 == 0) {
+			return new LongBreak(guiPomodoro);
+		}
+		else {
+			return new Break(guiPomodoro);
+		}
+	}
 
 	@Override
 	public void setBackGroundColor() {
-		// TODO Auto-generated method stub
 		guiPomodoro.contentPane.setBackground(new Color(229, 80, 57));
-		guiPomodoro.viewStatsPane.setBackground(new Color(229, 80, 57));
 	}
 
 	@Override
 	public void setDisplayComponents() {
-		// TODO Auto-generated method stub
-		guiPomodoro.btnPause.setVisible(!guiPomodoro.btnPause.isVisible());
+		guiPomodoro.btnPause.setVisible(true);
+		guiPomodoro.btnSkip.setVisible(false);
 	}
 }

@@ -17,4 +17,6 @@ public abstract class PomodoroState {
     
     public abstract void setBackGroundColor();
     public abstract void setDisplayComponents();
+    public abstract int getTimer();
+    public abstract PomodoroState nextState();
 }

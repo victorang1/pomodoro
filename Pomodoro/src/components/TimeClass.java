@@ -19,26 +19,21 @@ public class TimeClass extends JLabel implements Observable, ActionListener {
     
     private ArrayList<Observer> observers;    
     
-    public TimeClass(int counter) {
-        setText(String.valueOf(counter));
-        
+    public TimeClass() {
 		setFont(new Font("Verdana", Font.PLAIN, 45));
 		setForeground(Color.BLACK);
 		setBounds(0, 0, 130, 80);
 		setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		createTimer();
-		
-        this.counter = counter;
         this.observers = new ArrayList<>();
+        
+        refreshTimerText(1);
     }
     
     public void actionPerformed(ActionEvent tc) {
         counter--;
-        if(counter >= 1) {
-            setText(String.valueOf(counter));
-        }
-        else {
-            timer.stop();
+        refreshTimerText(counter);
+        if(counter < 0) {
             broadcast();
         }
     }
@@ -48,16 +43,21 @@ public class TimeClass extends JLabel implements Observable, ActionListener {
         timer.start();
     }
 
+    public void refreshTimerText(int newTimer) {
+        counter = newTimer;
+        setText(String.format("%02d:%02d", counter / 60, counter % 60));
+    }
+
     @Override
     public void addObserver(Observer obs) {
-        // TODO Auto-generated method stub
-        
+        observers.add(obs);
     }
 
     @Override
     public void broadcast() {
-        // TODO Auto-generated method stub
-        
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 }
 
