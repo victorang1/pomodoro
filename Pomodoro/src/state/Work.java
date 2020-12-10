@@ -13,7 +13,7 @@ public class Work extends PomodoroState {
 
 	@Override
 	public int getTimer() {
-       return 1;
+       return 3;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package state;
 
 import GUI.GUIPomodoro;
 import java.awt.Color;
+import components.IndicatorPane;
 
 public class LongBreak extends Break {
     
@@ -11,6 +12,12 @@ public class LongBreak extends Break {
 
     @Override
     public int getTimer() {
-        return 3;
+        return 7;
+    }
+
+    @Override
+    public PomodoroState nextState() {
+        IndicatorPane.getInstance().resetCycle();
+		return new Work(guiPomodoro);
     }
 }

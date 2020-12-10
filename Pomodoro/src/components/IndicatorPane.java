@@ -41,6 +41,11 @@ public class IndicatorPane extends JPanel{
         refreshPane();
     }
 
+    public void resetCycle() {
+        currentCycleIdx = 1;
+        refreshPane();
+    }
+
     public int getCurrentIndex() {
         return currentCycleIdx;
     }
@@ -55,11 +60,12 @@ public class IndicatorPane extends JPanel{
 			statePane.add(indicatorLabel);
         }
         
-        if (currCycle % 2 != 0) {
+        if (currentCycleIdx % 2 == 1) {
             JLabel indicatorLabel = new JLabel();
             ImageIcon ic = new TwoToneDotIndicator().getImageIcon();
-            indicatorLabel.setIcon(ic);            
-			statePane.add(indicatorLabel);
+            indicatorLabel.setIcon(ic);
+            statePane.add(indicatorLabel);
+            currCycle++;
         }
         
         for (int i = 0; i < 4 - currCycle; i++) {
