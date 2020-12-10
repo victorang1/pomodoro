@@ -6,15 +6,8 @@ import javax.swing.ImageIcon;
 import GUI.GUIPomodoro;
 import action.CustomButtonListener;
 import action.SkipAction;
-import action.CustomButtonListener;
 
 public class SkipButton extends ActionButton {
-	
-	private GUIPomodoro stateHolder;
-
-	public SkipButton(GUIPomodoro stateHolder) {
-		this.stateHolder = stateHolder;
-	}
 
 	@Override
 	protected Icon getButtonIcon() {
@@ -23,6 +16,6 @@ public class SkipButton extends ActionButton {
 
 	@Override
 	protected void setListener() {
-	    addActionListener(new CustomButtonListener(new SkipAction(stateHolder)));
+	    addActionListener(new CustomButtonListener(new SkipAction()));
 	}
 }

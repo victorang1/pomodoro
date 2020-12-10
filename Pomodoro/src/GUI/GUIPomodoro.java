@@ -26,7 +26,7 @@ public class GUIPomodoro implements Observer {
 	public JPanel contentPane, actionPane, statePane, viewStatsPane,indicatorPane;
 	public Button btnPlay, btnPause, btnSkip;
 	public Timer timer;
-	private PomodoroState pomodoroState;
+	public static PomodoroState pomodoroState;
 	
 	public GUIPomodoro() {			
 		//init main pane
@@ -58,7 +58,7 @@ public class GUIPomodoro implements Observer {
 
 		//create action button
 		btnPause = new PauseButton();
-		btnSkip = new SkipButton(this);
+		btnSkip = new SkipButton();
 		btnPlay = new PlayButton();
 		
 		actionPane = new JPanel();
@@ -79,12 +79,13 @@ public class GUIPomodoro implements Observer {
 		indicatorPane = IndicatorPane.getInstance().getStatePane();
 	}
 
+	public static void changeState() {
+		pomodoroState = pomodoroState.nextState();
+		TimeClass.getInstance().refreshTimerText(pomodoroState.getTimer());
+	}
+
 	@Override
 	public void update() {
-		pomodoroState = pomodoroState.nextState();
-		timerLabel.refreshTimerText(pomodoroState.getTimer());
+		changeState();
 	}	
-//	public static void main(String[] args) {
-//		new GUIPomodoro();
-//	}
 }
