@@ -1,8 +1,8 @@
 /GUI/
-/GUIStats.class
-/ViewStat.class
+/Main.class
+/action/
 /components/
 /event/
 /res/
 /state/
-/Main.class
+/Config.class

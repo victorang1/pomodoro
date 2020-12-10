@@ -5,6 +5,7 @@ import javax.swing.Timer;
 
 import event.Observable;
 import event.Observer;
+import state.Config;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -36,7 +37,7 @@ public class TimeClass extends JLabel implements Observable, ActionListener {
 		createTimer();
         this.observers = new ArrayList<>();
         
-        refreshTimerText(1);
+        refreshTimerText(Config.WORK_TIME);
     }
     
     public void actionPerformed(ActionEvent tc) {
