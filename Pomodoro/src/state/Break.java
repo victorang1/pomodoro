@@ -30,7 +30,7 @@ public class Break extends PomodoroState {
 
 	@Override
 	public void setDisplayComponents() {
-		guiPomodoro.btnPause.setVisible(!guiPomodoro.btnPause.isVisible());
-		guiPomodoro.btnSkip.setVisible(!guiPomodoro.btnSkip.isVisible());
+		guiPomodoro.btnPause.setVisible(true);
+		guiPomodoro.btnSkip.setVisible(true);
 	}
 }

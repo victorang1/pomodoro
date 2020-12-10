@@ -1,14 +1,11 @@
 package components;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import state.Work;
 
 public class IndicatorPane extends JPanel{
 	private ArrayList<JLabel> circleIndicator;
@@ -50,14 +47,25 @@ public class IndicatorPane extends JPanel{
 
     private void refreshPane() {
         statePane.removeAll();
-        for (int i = 0; i < 4; i++) {
+        int currCycle = currentCycleIdx/2;
+        for (int i = 0; i < currCycle; i++) {
             JLabel indicatorLabel = new JLabel();
-            
-            ImageIcon ic = (i != currentCycleIdx) ? new OutlineDotIndicator().getImageIcon() :
-            	new TwoToneDotIndicator().getImageIcon();
-            
+            ImageIcon ic = new FilledDotIndicator().getImageIcon();
             indicatorLabel.setIcon(ic);            
-            
+			statePane.add(indicatorLabel);
+        }
+        
+        if (currCycle % 2 != 0) {
+            JLabel indicatorLabel = new JLabel();
+            ImageIcon ic = new TwoToneDotIndicator().getImageIcon();
+            indicatorLabel.setIcon(ic);            
+			statePane.add(indicatorLabel);
+        }
+        
+        for (int i = 0; i < 4 - currCycle; i++) {
+            JLabel indicatorLabel = new JLabel();
+            ImageIcon ic = new OutlineDotIndicator().getImageIcon();
+            indicatorLabel.setIcon(ic);            
 			statePane.add(indicatorLabel);
         }
     }

@@ -13,10 +13,4 @@ public class LongBreak extends Break {
     public int getTimer() {
         return 3;
     }
-
-    
-    @Override
-    public void setDisplayComponents() {
-		guiPomodoro.contentPane.setBackground(Color.GREEN);
-	}
 }

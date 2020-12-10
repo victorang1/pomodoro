@@ -15,4 +15,6 @@
 <fullyQualifiedTypeName name="javax.swing.Timer"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="javax.swing.SwingConstants"/>
+<fullyQualifiedTypeName name="GUI.GUIPomodoro"/>
+<fullyQualifiedTypeName name="state.Work"/>
 </qualifiedTypeNameHistroy>

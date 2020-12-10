@@ -34,6 +34,7 @@ public class Work extends PomodoroState {
 
 	@Override
 	public void setDisplayComponents() {
-		guiPomodoro.btnPause.setVisible(!guiPomodoro.btnPause.isVisible());
+		guiPomodoro.btnPause.setVisible(true);
+		guiPomodoro.btnSkip.setVisible(false);
 	}
 }
