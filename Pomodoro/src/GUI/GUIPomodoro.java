@@ -1,36 +1,31 @@
 package GUI;
-import java.awt.Color;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import components.buttons.Button;
+import components.buttons.PauseButton;
+import components.buttons.PlayButton;
+import components.buttons.SkipButton;
+import components.buttons.ViewStatsButton;
 import components.IndicatorPane;
-import components.PauseButton;
-import components.PlayButton;
 import components.PomodoroFrame;
-import components.SkipButton;
 import components.TimeClass;
 import event.Observer;
-import state.Break;
 import state.PomodoroState;
 import state.Work;
 
 public class GUIPomodoro implements Observer {
+
 	public JFrame frame;
-	public JLabel label, viewStatsLabel;
 	public TimeClass timerLabel;
 	public JPanel contentPane, actionPane, statePane, viewStatsPane,indicatorPane;
-	public JButton btnPlay, btnPause, btnSkip;
+	public Button btnPlay, btnPause, btnSkip;
 	public Timer timer;
-	int count=1;
-	public ArrayList<JLabel> circleIndicator = new ArrayList<>();
 	private PomodoroState pomodoroState;
 	
 	public GUIPomodoro() {			
@@ -58,17 +53,13 @@ public class GUIPomodoro implements Observer {
 
 	private void createComponents() {
 		//create timer
-		timerLabel = new TimeClass();
+		timerLabel = TimeClass.getInstance();
 		timerLabel.addObserver(this);
 
 		//create action button
-		btnPause = new PauseButton().getButton();
-		btnSkip = new SkipButton().getButton();
-		btnPlay = new PlayButton().getButton();
-		
-		btnPause.setVisible(false);
-		btnSkip.setVisible(false);
-		btnPlay.setVisible(false);
+		btnPause = new PauseButton();
+		btnSkip = new SkipButton(this);
+		btnPlay = new PlayButton();
 		
 		actionPane = new JPanel();
 		actionPane.setLayout(new BoxLayout(actionPane, BoxLayout.LINE_AXIS));
@@ -77,15 +68,12 @@ public class GUIPomodoro implements Observer {
 		actionPane.add(btnPlay);
 		actionPane.add(btnSkip);
 
-		
 		//create view state 
 		viewStatsPane = new JPanel();
 		viewStatsPane.setLayout(new BoxLayout(viewStatsPane, BoxLayout.LINE_AXIS));
-		viewStatsLabel = new JLabel("view stats");
-		viewStatsLabel.setForeground(Color.BLACK);
 		viewStatsPane.setOpaque(false);
 		viewStatsPane.add(Box.createHorizontalGlue());
-		viewStatsPane.add(viewStatsLabel);
+		viewStatsPane.add(new ViewStatsButton());
 
 		//create CycleIndicator
 		indicatorPane = IndicatorPane.getInstance().getStatePane();
