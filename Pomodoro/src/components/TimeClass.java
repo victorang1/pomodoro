@@ -14,12 +14,21 @@ import java.util.ArrayList;
 
 public class TimeClass extends JLabel implements Observable, ActionListener {
 
+    private static TimeClass instance;
+
     private Timer timer;
     private int counter;
     
     private ArrayList<Observer> observers;    
+
+    public synchronized static TimeClass getInstance() {
+        if (instance == null) {
+            instance = new TimeClass();
+        }
+        return instance;
+    }
     
-    public TimeClass() {
+    private TimeClass() {
 		setFont(new Font("Verdana", Font.PLAIN, 45));
 		setForeground(Color.BLACK);
 		setBounds(0, 0, 130, 80);
@@ -58,6 +67,10 @@ public class TimeClass extends JLabel implements Observable, ActionListener {
         for (Observer observer : observers) {
             observer.update();
         }
+    }
+
+    public Timer getTimer() {
+        return timer;
     }
 }
 
