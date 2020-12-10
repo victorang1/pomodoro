@@ -13,7 +13,7 @@ public class Break extends PomodoroState {
 
 	@Override
 	public int getTimer() {
-		return 5;
+		return Config.BREAK_TIME;
 	}
 
 	@Override

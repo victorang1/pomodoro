@@ -2,6 +2,7 @@ package state;
 
 import java.awt.Color;
 
+import state.Config;
 import GUI.GUIPomodoro;
 import components.IndicatorPane;
 
@@ -13,7 +14,7 @@ public class Work extends PomodoroState {
 
 	@Override
 	public int getTimer() {
-       return 3;
+       return Config.WORK_TIME;
 	}
 
 	@Override
