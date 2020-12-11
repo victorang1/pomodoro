@@ -24,13 +24,12 @@ import event.Observer;
 import state.PomodoroState;
 import state.Work;
 import state.buttonstate.ActionButtonState;
-import state.buttonstate.PauseState;
 import state.buttonstate.PlayState;
 
 public class GUIPomodoro implements Observer {
 
-	public JFrame frame;
-	public TimeClass timerLabel;
+	private JFrame frame;
+	private TimeClass timerLabel;
 	public JPanel contentPane, actionPane, statePane, viewStatsPane,indicatorPane;
 	public Button btnPlay, btnPause, btnSkip;
 	private PomodoroState pomodoroState;
