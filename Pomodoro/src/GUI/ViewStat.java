@@ -1,43 +1,38 @@
 package GUI;
 
-import java.awt.Dimension;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import components.frame.StatsFrame;
+import components.viewstats.ViewStatsPanel;
+import event.Observer;
+import state.LongBreak;
 
-public class ViewStat {
+public class ViewStat implements Observer {
 
-	JButton jbutton;
-	JPanel jpanel;
-	JPanel OuterPanel = new JPanel();
-	JLabel jlabel;
-	String days[] = {"Tue","Wed","Thu","Fri","Sat","Sun","Mon"};
+	private static ViewStat instance;
+	private JFrame statsFrame;
+	private JPanel outerPanel;
 	
-	public ViewStat() {
+	private ViewStat() {
+		outerPanel = new ViewStatsPanel();
+	}
 
-		for (String d : days) {
-			JPanel jpanel = new JPanel();
-		
-			jpanel.setLayout(new BoxLayout(jpanel, BoxLayout.PAGE_AXIS));
-			jpanel.add(new JLabel(d));
-			jpanel.add(Box.createRigidArea(new Dimension(0,5)));
-			jpanel.setPreferredSize(new Dimension(45, 45));
-			jpanel.setMaximumSize(new Dimension(45, 45));
-			jpanel.add(new JLabel("0"));
-			
-			OuterPanel.add(jpanel);
+	public synchronized static ViewStat getInstance() {
+		if (instance == null) {
+			instance = new ViewStat();
 		}
-		
-		new StatsFrame(OuterPanel).getFrame();
-	}
-	
-	public static void main(String[] args) {
-		new ViewStat();
+		return instance;
 	}
 
+	@Override
+	public void update() {
+		if (GUIPomodoro.getInstance().getCurrentState() instanceof LongBreak) {
+			((ViewStatsPanel) outerPanel).updateCounter();
+		}
+	}
+	
+	public void openFrame() {
+		statsFrame = new StatsFrame(outerPanel).getFrame();
+	}
 }

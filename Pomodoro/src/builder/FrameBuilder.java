@@ -29,7 +29,6 @@ public class FrameBuilder {
     public FrameBuilder setDefaultPomodoroFrame() {
         setTitle("Pomodoro");
         setIcon(new ImageIcon(FrameBuilder.class.getResource("/res/tomato.png")));
-		setCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisibility(true);
 		setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -71,7 +70,7 @@ public class FrameBuilder {
         return this;
     }
 
-    public FrameBuilder useBorderLayout() {
+    public FrameBuilder useBoxLayout() {
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
         return this;
     }

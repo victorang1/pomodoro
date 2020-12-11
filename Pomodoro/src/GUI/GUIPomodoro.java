@@ -7,6 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import action.CustomButtonListener;
+import action.PauseAction;
+import action.PlayAction;
+import action.SkipAction;
+import action.ViewStatsAction;
 import components.buttons.Button;
 import components.buttons.PauseButton;
 import components.buttons.PlayButton;
@@ -18,6 +23,9 @@ import components.TimeClass;
 import event.Observer;
 import state.PomodoroState;
 import state.Work;
+import state.buttonstate.ActionButtonState;
+import state.buttonstate.PauseState;
+import state.buttonstate.PlayState;
 
 public class GUIPomodoro implements Observer {
 
@@ -25,10 +33,12 @@ public class GUIPomodoro implements Observer {
 	public TimeClass timerLabel;
 	public JPanel contentPane, actionPane, statePane, viewStatsPane,indicatorPane;
 	public Button btnPlay, btnPause, btnSkip;
-	public Timer timer;
-	public static PomodoroState pomodoroState;
+	private PomodoroState pomodoroState;
+	private ActionButtonState mState;
+
+	private static GUIPomodoro instance;
 	
-	public GUIPomodoro() {			
+	private GUIPomodoro() {			
 		//init main pane
 		contentPane = new JPanel();
 		contentPane.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
@@ -40,6 +50,7 @@ public class GUIPomodoro implements Observer {
 		//set the state
 //		podomoroState = new Break(this);
 		pomodoroState = new Work(this);
+		mState = new PlayState();
 		
 		//populate main content
 		contentPane.add(timerLabel);
@@ -55,11 +66,13 @@ public class GUIPomodoro implements Observer {
 		//create timer
 		timerLabel = TimeClass.getInstance();
 		timerLabel.addObserver(this);
+		timerLabel.addObserver(ViewStat.getInstance());
 
 		//create action button
-		btnPause = new PauseButton();
-		btnSkip = new SkipButton();
-		btnPlay = new PlayButton();
+		Timer pomodoroTimer = TimeClass.getInstance().getTimer();
+		btnPause = new PauseButton(new CustomButtonListener(new PauseAction(pomodoroTimer)));
+		btnSkip = new SkipButton(new CustomButtonListener(new SkipAction()));
+		btnPlay = new PlayButton(new CustomButtonListener(new PlayAction(pomodoroTimer)));
 		
 		actionPane = new JPanel();
 		actionPane.setLayout(new BoxLayout(actionPane, BoxLayout.LINE_AXIS));
@@ -73,19 +86,30 @@ public class GUIPomodoro implements Observer {
 		viewStatsPane.setLayout(new BoxLayout(viewStatsPane, BoxLayout.LINE_AXIS));
 		viewStatsPane.setOpaque(false);
 		viewStatsPane.add(Box.createHorizontalGlue());
-		viewStatsPane.add(new ViewStatsButton());
+		viewStatsPane.add(new ViewStatsButton(new CustomButtonListener(new ViewStatsAction())));
 
 		//create CycleIndicator
 		indicatorPane = IndicatorPane.getInstance().getStatePane();
 	}
 
-	public static void changeState() {
-		pomodoroState = pomodoroState.nextState();
-		TimeClass.getInstance().refreshTimerText(pomodoroState.getTimer());
+	public static GUIPomodoro getInstance() {
+		if (instance == null) {
+			instance = new GUIPomodoro();
+		}
+		return instance;
+	}
+
+	public PomodoroState getCurrentState() {
+		return pomodoroState;
 	}
 
 	@Override
 	public void update() {
-		changeState();
-	}	
+		pomodoroState = pomodoroState.nextState();
+		TimeClass.getInstance().refreshTimerText(pomodoroState.getTimer());
+	}
+
+	public void switchActionState() {
+		mState = mState.switchState();
+	}
 }
