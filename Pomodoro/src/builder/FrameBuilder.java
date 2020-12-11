@@ -29,7 +29,6 @@ public class FrameBuilder {
     public FrameBuilder setDefaultPomodoroFrame() {
         setTitle("Pomodoro");
         setIcon(new ImageIcon(FrameBuilder.class.getResource("/res/tomato.png")));
-		setVisibility(true);
 		setResizable(false);
         frame.setLocationRelativeTo(null);
         return this;

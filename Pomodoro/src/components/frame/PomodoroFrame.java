@@ -10,6 +10,7 @@ public class PomodoroFrame extends BaseFrame {
     public JFrame getFrame() {
       return mBuilder.setDefaultPomodoroFrame()
         .setCloseOperation(JFrame.EXIT_ON_CLOSE)
+        .setVisibility(true)
         .setSize(new Dimension(300, 200))
         .build();
     }

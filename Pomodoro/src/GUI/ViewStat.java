@@ -3,19 +3,32 @@ package GUI;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import components.frame.StatsFrame;
 import components.viewstats.ViewStatsPanel;
 import event.Observer;
+import state.Break;
 import state.LongBreak;
+import state.PomodoroState;
 
 public class ViewStat implements Observer {
 
 	private static ViewStat instance;
 	private JFrame statsFrame;
 	private JPanel outerPanel;
+	private boolean isOpen = false;
 	
 	private ViewStat() {
 		outerPanel = new ViewStatsPanel();
+		statsFrame = new StatsFrame(outerPanel).getFrame();
+		statsFrame.addWindowListener(new WindowAdapter() {
+			@Override
+            public void windowClosing(WindowEvent e) {
+                isOpen = false;
+            }
+		});
 	}
 
 	public synchronized static ViewStat getInstance() {
@@ -27,12 +40,20 @@ public class ViewStat implements Observer {
 
 	@Override
 	public void update() {
-		if (GUIPomodoro.getInstance().getCurrentState() instanceof LongBreak) {
+		if (shouldUpdate()) {
 			((ViewStatsPanel) outerPanel).updateCounter();
 		}
 	}
 	
 	public void openFrame() {
-		statsFrame = new StatsFrame(outerPanel).getFrame();
+		if (!isOpen) {
+			statsFrame.setVisible(true);
+			isOpen = true;
+		}
+	}
+
+	private boolean shouldUpdate() {
+		PomodoroState mState = GUIPomodoro.getInstance().getCurrentState();
+		return mState instanceof LongBreak || (isOpen && mState instanceof Break);
 	}
 }
