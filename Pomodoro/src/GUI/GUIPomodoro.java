@@ -25,6 +25,7 @@ import state.PomodoroState;
 import state.Work;
 import state.buttonstate.ActionButtonState;
 import state.buttonstate.PlayState;
+import util.LogsUtil;
 
 public class GUIPomodoro implements Observer {
 
@@ -104,6 +105,9 @@ public class GUIPomodoro implements Observer {
 
 	@Override
 	public void update() {
+		if (pomodoroState instanceof Work) {
+			LogsUtil.getInstance().export(((Work) pomodoroState).getNotes());
+		}
 		pomodoroState = pomodoroState.nextState();
 		TimeClass.getInstance().refreshTimerText(pomodoroState.getTimer());
 	}

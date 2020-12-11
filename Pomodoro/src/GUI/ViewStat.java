@@ -12,6 +12,7 @@ import event.Observer;
 import state.Break;
 import state.LongBreak;
 import state.PomodoroState;
+import util.LogsUtil;
 
 public class ViewStat implements Observer {
 
@@ -21,6 +22,7 @@ public class ViewStat implements Observer {
 	private boolean isOpen = false;
 	
 	private ViewStat() {
+		LogsUtil.getInstance().readLog();
 		outerPanel = new ViewStatsPanel();
 		statsFrame = new StatsFrame(outerPanel).getFrame();
 		statsFrame.addWindowListener(new WindowAdapter() {
@@ -48,12 +50,11 @@ public class ViewStat implements Observer {
 	public void openFrame() {
 		if (!isOpen) {
 			statsFrame.setVisible(true);
-			isOpen = true;
 		}
 	}
 
 	private boolean shouldUpdate() {
 		PomodoroState mState = GUIPomodoro.getInstance().getCurrentState();
-		return mState instanceof LongBreak || (isOpen && mState instanceof Break);
+		return mState instanceof LongBreak || mState instanceof Break;
 	}
 }

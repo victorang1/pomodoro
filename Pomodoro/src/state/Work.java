@@ -2,7 +2,6 @@ package state;
 
 import java.awt.Color;
 
-import state.Config;
 import GUI.GUIPomodoro;
 import components.IndicatorPane;
 
@@ -38,4 +37,8 @@ public class Work extends PomodoroState {
 		guiPomodoro.btnPause.setVisible(true);
 		guiPomodoro.btnSkip.setVisible(false);
 	}
+
+    public String getNotes() {
+        return "Thankyou for working";
+    }
 }

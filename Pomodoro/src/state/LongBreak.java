@@ -1,7 +1,6 @@
 package state;
 
 import GUI.GUIPomodoro;
-import java.awt.Color;
 
 import components.IndicatorPane;
 

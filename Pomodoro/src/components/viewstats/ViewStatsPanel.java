@@ -1,12 +1,14 @@
 package components.viewstats;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import util.DateUtil;
+import util.LogsUtil;
 
 public class ViewStatsPanel extends JPanel {
     
@@ -15,8 +17,11 @@ public class ViewStatsPanel extends JPanel {
 
     public ViewStatsPanel() {
         childrenPanel = new ArrayList<>();
+        int position = 0;
+        System.out.println("radit = " + LogsUtil.getInstance().getLogs().getOrDefault(6, 0));
         for (String d : days) {
-            DaysPanel jpanel = new DaysPanel(new JLabel(d), new CounterLabel());
+            int currentCounter = LogsUtil.getInstance().getLogs().getOrDefault(position++, 0);
+            DaysPanel jpanel = new DaysPanel(new JLabel(d), new CounterLabel(currentCounter));
 			addPanel(jpanel);
 		}
     }
@@ -27,9 +32,8 @@ public class ViewStatsPanel extends JPanel {
     }
 
     public void updateCounter() {
-        Calendar cal = Calendar.getInstance();
-        int currentDay = cal.get(Calendar.DAY_OF_WEEK);
-        DaysPanel panel = (DaysPanel) childrenPanel.get(((currentDay + 5) % 7) - 1);
+        int orderWeek = DateUtil.getPomodoroDateOfWeekOrder();
+        DaysPanel panel = (DaysPanel) childrenPanel.get(orderWeek);
         panel.updateCounter();
     }
 }

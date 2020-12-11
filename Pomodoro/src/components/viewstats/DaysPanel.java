@@ -10,7 +10,6 @@ import javax.swing.BoxLayout;
 
 public class DaysPanel extends JPanel {
     
-    private JLabel days;
     private CounterLabel counterLabel;
 
     public DaysPanel(JLabel days, CounterLabel counterLabel) {
@@ -20,7 +19,6 @@ public class DaysPanel extends JPanel {
         setPreferredSize(new Dimension(45, 45));
         setMaximumSize(new Dimension(45, 45));
         add(counterLabel);
-        this.days = days;
         this.counterLabel = counterLabel;
     }
 
