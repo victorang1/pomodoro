@@ -13,7 +13,7 @@ import components.buttons.PlayButton;
 import components.buttons.SkipButton;
 import components.buttons.ViewStatsButton;
 import components.IndicatorPane;
-import components.PomodoroFrame;
+import components.frame.PomodoroFrame;
 import components.TimeClass;
 import event.Observer;
 import state.PomodoroState;
@@ -47,7 +47,7 @@ public class GUIPomodoro implements Observer {
 		contentPane.add(indicatorPane);
 		contentPane.add(viewStatsPane);
 		
-		frame = new PomodoroFrame();
+		frame = new PomodoroFrame().getFrame();
 		frame.add(contentPane);
 	}
 

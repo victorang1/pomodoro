@@ -11,7 +11,6 @@ public class GUIStats {
 	JLabel labels;
 	JPanel panel;
 	
-	
 	public GUIStats() {
 		frame = new JFrame();
 		panel = new JPanel();
