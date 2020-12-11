@@ -3,7 +3,7 @@ import GUI.GUIPomodoro;
 public class Main {
 
 	public Main() {
-		new GUIPomodoro();
+		GUIPomodoro.getInstance();
 	}
 
 	public static void main(String[] args) {

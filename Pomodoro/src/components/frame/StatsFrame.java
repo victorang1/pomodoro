@@ -14,7 +14,8 @@ public class StatsFrame extends BaseFrame {
     @Override
     public JFrame getFrame() {
       return mBuilder.setDefaultPomodoroFrame()
-        .useBorderLayout()
+        .useBoxLayout()
+        .setCloseOperation(JFrame.DISPOSE_ON_CLOSE)
         .addPanel(statsPanel)
         .setPack()
         .build();

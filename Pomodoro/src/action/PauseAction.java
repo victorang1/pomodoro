@@ -2,6 +2,8 @@ package action;
 
 import javax.swing.Timer;
 
+import GUI.GUIPomodoro;
+
 public class PauseAction implements ActionCommand {
 
     private Timer timer;
@@ -12,6 +14,7 @@ public class PauseAction implements ActionCommand {
     
     @Override
     public void execute() {
+        GUIPomodoro.getInstance().switchActionState();
         timer.stop();
     }
 }

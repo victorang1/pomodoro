@@ -6,6 +6,6 @@ public class SkipAction implements ActionCommand {
     
     @Override
     public void execute() {
-        GUIPomodoro.changeState();
+        GUIPomodoro.getInstance().update();
     }
 }
