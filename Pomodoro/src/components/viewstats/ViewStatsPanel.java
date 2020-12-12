@@ -1,7 +1,6 @@
 package components.viewstats;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 import javax.swing.JLabel;
@@ -18,9 +17,8 @@ public class ViewStatsPanel extends JPanel {
     public ViewStatsPanel() {
         childrenPanel = new ArrayList<>();
         int position = 0;
-        System.out.println("radit = " + LogsUtil.getInstance().getLogs().getOrDefault(6, 0));
         for (String d : days) {
-            int currentCounter = LogsUtil.getInstance().getLogs().getOrDefault(position++, 0);
+            int currentCounter = LogsUtil.getInstance().getLogsValueFromKey(position++);
             DaysPanel jpanel = new DaysPanel(new JLabel(d), new CounterLabel(currentCounter));
 			addPanel(jpanel);
 		}

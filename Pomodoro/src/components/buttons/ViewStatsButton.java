@@ -1,18 +1,20 @@
 package components.buttons;
 
 import java.awt.Color;
-import java.awt.event.ActionListener;
+
+import listener.ButtonListener;
+import listener.ViewStatsButtonListener;
 
 public class ViewStatsButton extends Button {
 
-    public ViewStatsButton(ActionListener mListener) {
-        super(mListener);
+    public ViewStatsButton() {
+        super();
         setForeground(Color.BLACK);
         setText("View Stats");
 	}
 
-    // @Override
-    // protected void setListener() {
-    //     addActionListener(new CustomButtonListener(new ViewStatsAction()));
-    // }
+    @Override
+	protected ButtonListener getButtonListener() {
+		return new ViewStatsButtonListener();
+	}
 }
