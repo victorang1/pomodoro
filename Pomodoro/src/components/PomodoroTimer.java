@@ -13,23 +13,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class TimeClass extends JLabel implements Observable, ActionListener {
+public class PomodoroTimer extends JLabel implements Observable, ActionListener {
 
-    private static TimeClass instance;
+    private static PomodoroTimer instance;
 
     private Timer timer;
     private int counter;
     
     private ArrayList<Observer> observers;    
 
-    public synchronized static TimeClass getInstance() {
+    public synchronized static PomodoroTimer getInstance() {
         if (instance == null) {
-            instance = new TimeClass();
+            instance = new PomodoroTimer();
         }
         return instance;
     }
     
-    private TimeClass() {
+    private PomodoroTimer() {
 		setFont(new Font("Verdana", Font.PLAIN, 45));
 		setForeground(Color.BLACK);
 		setBounds(0, 0, 130, 80);

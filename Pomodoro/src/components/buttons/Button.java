@@ -4,11 +4,12 @@ import java.awt.Cursor;
 import java.awt.Insets;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
+
+import listener.ButtonListener;
 
 public abstract class Button extends JButton {
 	
-	public Button(ActionListener mListener) {
+	public Button() {
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setBorderPainted(false);
 		setBorder(null);
@@ -17,6 +18,8 @@ public abstract class Button extends JButton {
 		setSize(0, 0);
 		setFocusPainted(false);
 		setContentAreaFilled(false);
-		addActionListener(mListener);
+		addActionListener(getButtonListener().getListener());
 	}
+
+	protected abstract ButtonListener getButtonListener();
 }

@@ -32,11 +32,7 @@ public class LogsUtil {
     public void export(String detail) {
         try {
             FileWriter csvWriter = new FileWriter(Config.LOG_PATH, true);
-            TimeZone timeZone = TimeZone.getTimeZone("UTC+7");
-            Calendar cal = Calendar.getInstance(timeZone);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssX");
-
-            csvWriter.append(format.format(cal.getTime()));
+            csvWriter.append(DateUtil.getCurrentDateWithTimezone());
             csvWriter.append(",");
             csvWriter.append(detail);
             csvWriter.append("\n");
@@ -55,9 +51,8 @@ public class LogsUtil {
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split(",");
                 Date date = DateUtil.convertToDate(data[0]);
-                if (DateUtil.getDateDiffFromNow(date, TimeUnit.DAYS) <= 7) {
+                if (DateUtil.getDateDiffFromToday(date) <= 7) {
                     int key = DateUtil.getPomodoroDateOfWeekOrder(date);
-                    System.out.println(key);
                     if (logs.containsKey(key)) {
                         logs.put(key, logs.get(key) + 1);
                     }
@@ -72,7 +67,7 @@ public class LogsUtil {
         }
     }
 
-    public Map<Integer, Integer> getLogs() {
-        return logs;
+    public Integer getLogsValueFromKey(int key) {
+        return this.logs.getOrDefault(key, 0);
     }
 }
