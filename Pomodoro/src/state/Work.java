@@ -17,28 +17,35 @@ public class Work extends PomodoroState {
 	}
 
 	@Override
-	public PomodoroState nextState() {
-		IndicatorPane.getInstance().incrementCycle();
-		if (IndicatorPane.getInstance().getCurrentIndex() % 8 == 0) {
+	public PomodoroState nextState(GUIPomodoro guiPomodoro) {
+		IndicatorPane indicatorPane = ((IndicatorPane)guiPomodoro.getIndicatorPane());
+		
+		if (indicatorPane.getCurrentIndex() != 0 && indicatorPane.getCurrentIndex() % 3 == 0)
 			return new LongBreak(guiPomodoro);
-		}
-		else {
+	
+		else 
 			return new Break(guiPomodoro);
-		}
+		
 	}
 
 	@Override
-	public void setBackGroundColor() {
-		guiPomodoro.contentPane.setBackground(new Color(229, 80, 57));
+	public void setBackGroundColor(GUIPomodoro guiPomodoro) {
+		guiPomodoro.getContentPane().setBackground(new Color(229, 80, 57));
 	}
 
 	@Override
-	public void setDisplayComponents() {
-		guiPomodoro.btnPause.setVisible(true);
-		guiPomodoro.btnSkip.setVisible(false);
+	public void setDisplayComponents(GUIPomodoro guiPomodoro) {
+		guiPomodoro.getBtnPause().setVisible(true);
+		guiPomodoro.getBtnSkip().setVisible(false);
 	}
 
     public String getNotes() {
         return "Thankyou for working";
     }
+
+	@Override
+	public void setIndicatorPane(GUIPomodoro guiPomodoro) {
+		// TODO Auto-generated method stub
+        ((IndicatorPane)guiPomodoro.getIndicatorPane()).setCurrentDotToWork();
+	}
 }

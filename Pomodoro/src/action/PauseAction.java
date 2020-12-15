@@ -15,6 +15,7 @@ public class PauseAction implements ActionCommand {
     @Override
     public void execute() {
         GUIPomodoro.getInstance().switchActionState();
+        System.out.println("fuck yea");
         timer.stop();
     }
 }

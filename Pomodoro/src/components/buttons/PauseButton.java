@@ -6,10 +6,11 @@ import javax.swing.ImageIcon;
 import listener.ButtonListener;
 import listener.PauseButtonListener;
 
-public class PauseButton extends IconButton {
+public class PauseButton extends Button {
 
 	@Override
 	protected Icon getButtonIcon() {
+		setVisible(false);
 		return new ImageIcon(PauseButton.class.getResource("/res/pause.png"));
 	}
 

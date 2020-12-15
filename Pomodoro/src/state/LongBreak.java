@@ -6,8 +6,8 @@ import components.IndicatorPane;
 
 public class LongBreak extends Break {
     
-    public LongBreak(GUIPomodoro guiPomodoro) {
-        super(guiPomodoro);
+    public LongBreak(GUIPomodoro guiPomodoro){
+    	super(guiPomodoro);
     }
 
     @Override
@@ -16,8 +16,9 @@ public class LongBreak extends Break {
     }
 
     @Override
-    public PomodoroState nextState() {
-        IndicatorPane.getInstance().resetCycle();
+    public PomodoroState nextState(GUIPomodoro guiPomodoro) {
+    	((IndicatorPane) GUIPomodoro.getInstance().getIndicatorPane()).resetCycle();
 		return new Work(guiPomodoro);
     }
+   
 }

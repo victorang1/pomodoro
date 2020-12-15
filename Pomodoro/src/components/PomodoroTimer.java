@@ -29,7 +29,7 @@ public class PomodoroTimer extends JLabel implements Observable, ActionListener 
         return instance;
     }
     
-    private PomodoroTimer() {
+    public PomodoroTimer() {
 		setFont(new Font("Verdana", Font.PLAIN, 45));
 		setForeground(Color.BLACK);
 		setBounds(0, 0, 130, 80);
@@ -43,6 +43,7 @@ public class PomodoroTimer extends JLabel implements Observable, ActionListener 
     public void actionPerformed(ActionEvent tc) {
         counter--;
         refreshTimerText(counter);
+        
         if(counter < 0) {
             broadcast();
         }

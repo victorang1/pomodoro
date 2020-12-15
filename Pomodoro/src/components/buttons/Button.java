@@ -2,7 +2,7 @@ package components.buttons;
 
 import java.awt.Cursor;
 import java.awt.Insets;
-
+import javax.swing.Icon;
 import javax.swing.JButton;
 
 import listener.ButtonListener;
@@ -18,8 +18,10 @@ public abstract class Button extends JButton {
 		setSize(0, 0);
 		setFocusPainted(false);
 		setContentAreaFilled(false);
+		setIcon(getButtonIcon());
 		addActionListener(getButtonListener().getListener());
 	}
 
+	protected abstract Icon getButtonIcon();
 	protected abstract ButtonListener getButtonListener();
 }

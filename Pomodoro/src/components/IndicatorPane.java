@@ -1,78 +1,72 @@
 package components;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import state.Break;
+import state.PomodoroState;
+import state.Work;
+
 public class IndicatorPane extends JPanel{
-	private ArrayList<JLabel> circleIndicator;
-	private static IndicatorPane instance = null;
+	private Vector<JLabel> dotIndicators; 
 	private int currentCycleIdx;
-	private JPanel statePane;
 	
 	public IndicatorPane() {
-		circleIndicator = new ArrayList<>();
-		currentCycleIdx = 1; 
-        statePane = new JPanel();
-		
-        statePane.setLayout(new BoxLayout(statePane, BoxLayout.LINE_AXIS));
-        statePane.setOpaque(false);
+		currentCycleIdx = 0; 
+		dotIndicators = new Vector<>();
+        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        setOpaque(false);
 	     
-        //create indicator
-        refreshPane();
+        //create empty indicator
+        initDots();
+	}
+	     
+	public void setCurrentDotToBreak() {
+		setCurrentDotIconIndicator(new FilledDotIndicator().getImageIcon());
+		currentCycleIdx++;
 	}
 	
-    public synchronized static IndicatorPane getInstance() {
-        if (instance == null) {
-            instance = new IndicatorPane();
-        }
-        return instance;
-    }
-    
-    public JPanel getStatePane() {
-    	return statePane;
-    }
-      
-    public void incrementCycle() {
-        currentCycleIdx++;
-        refreshPane();
-    }
-
+	public void setCurrentDotToWork() {
+		setCurrentDotIconIndicator(new TwoToneDotIndicator().getImageIcon());
+	}
+	
     public void resetCycle() {
-        currentCycleIdx = 1;
-        refreshPane();
+        currentCycleIdx = 0;
+        dotIndicators.clear();
+        
+        initDots();
     }
 
     public int getCurrentIndex() {
         return currentCycleIdx;
     }
 
+    private void initDots() {       
+        for (int i =0;i<4;i++) {     	    	
+		  JLabel indicatorLabel = new JLabel();
+		  indicatorLabel.setIcon(new OutlineDotIndicator().getImageIcon());       
+		  dotIndicators.add(indicatorLabel);
+        }
+        
+        refreshPane();
+    }
+    
     private void refreshPane() {
-        statePane.removeAll();
-        int currCycle = currentCycleIdx/2;
-        for (int i = 0; i < currCycle; i++) {
-            JLabel indicatorLabel = new JLabel();
-            ImageIcon ic = new FilledDotIndicator().getImageIcon();
-            indicatorLabel.setIcon(ic);            
-			statePane.add(indicatorLabel);
-        }
-        
-        if (currentCycleIdx % 2 == 1) {
-            JLabel indicatorLabel = new JLabel();
-            ImageIcon ic = new TwoToneDotIndicator().getImageIcon();
-            indicatorLabel.setIcon(ic);
-            statePane.add(indicatorLabel);
-            currCycle++;
-        }
-        
-        for (int i = 0; i < 4 - currCycle; i++) {
-            JLabel indicatorLabel = new JLabel();
-            ImageIcon ic = new OutlineDotIndicator().getImageIcon();
-            indicatorLabel.setIcon(ic);            
-			statePane.add(indicatorLabel);
-        }
+    	removeAll();
+    	
+    	for(JLabel n : dotIndicators) {
+    		add(n);
+    	}
+    	
+    }
+    
+    private void setCurrentDotIconIndicator(ImageIcon ic) {
+    	 dotIndicators.get(currentCycleIdx).setIcon(ic);
+    	 refreshPane();
     }
 }

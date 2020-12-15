@@ -1,4 +1,5 @@
 import GUI.GUIPomodoro;
+import state.Work;
 
 public class Main {
 
