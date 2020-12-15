@@ -21,7 +21,7 @@ public class ViewStat implements Observer {
 	private JPanel outerPanel;
 	private boolean isOpen = false;
 	
-	private ViewStat() {
+	public ViewStat() {
 		LogsUtil.getInstance().readLog();
 		outerPanel = new ViewStatsPanel();
 		statsFrame = new StatsFrame(outerPanel).getFrame();

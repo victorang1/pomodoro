@@ -18,14 +18,6 @@ public class FrameBuilder {
         components = new ArrayList<>();
     }
 
-    public FrameBuilder(ArrayList<JPanel> components) {
-        this.components = components;
-    }
-
-    public FrameBuilder(JPanel contentPane) {
-        this.components.add(contentPane);
-    }
-
     public FrameBuilder setDefaultPomodoroFrame() {
         setTitle("Pomodoro");
         setIcon(new ImageIcon(FrameBuilder.class.getResource("/res/tomato.png")));
@@ -78,7 +70,7 @@ public class FrameBuilder {
         frame.add(jPanel);
         return this;
     }
-
+        
     public JFrame build() {
         for (JPanel panel: components) {
             frame.add(panel);

@@ -25,8 +25,9 @@ public class GUIPomodoro implements Observer {
 
 	private JFrame frame;
 	private PomodoroTimer timerLabel;
-	public JPanel contentPane, actionPane, statePane, viewStatsPane,indicatorPane;
-	public Button btnPlay, btnPause, btnSkip;
+	private JPanel contentPane, actionPane, viewStatsPane,indicatorPane;
+	private Button btnPlay, btnPause, btnSkip;
+
 	private PomodoroState pomodoroState;
 	private ActionButtonState mState;
 
@@ -38,17 +39,11 @@ public class GUIPomodoro implements Observer {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
 		
 		createComponents();
-	
-		pomodoroState = new Work(this);
-		mState = new PlayState();
-
-		contentPane.add(timerLabel);
-		contentPane.add(actionPane);
-		contentPane.add(indicatorPane);
-		contentPane.add(viewStatsPane);
 		
-		frame = new PomodoroFrame().getFrame();
-		frame.add(contentPane);
+		pomodoroState  = new Work(this);
+		mState = new PlayState(this);
+		
+		frame = new PomodoroFrame(contentPane).getFrame();
 	}
 
 	private void createComponents() {
@@ -73,7 +68,12 @@ public class GUIPomodoro implements Observer {
 		viewStatsPane.add(Box.createHorizontalGlue());
 		viewStatsPane.add(new ViewStatsButton());
 
-		indicatorPane = IndicatorPane.getInstance().getStatePane();
+		indicatorPane = new IndicatorPane();
+		
+		contentPane.add(timerLabel);
+		contentPane.add(actionPane);
+		contentPane.add(indicatorPane);
+		contentPane.add(viewStatsPane);
 	}
 
 	public static GUIPomodoro getInstance() {
@@ -92,11 +92,55 @@ public class GUIPomodoro implements Observer {
 		if (pomodoroState instanceof Work) {
 			LogsUtil.getInstance().export(((Work) pomodoroState).getNotes());
 		}
-		pomodoroState = pomodoroState.nextState();
-		PomodoroTimer.getInstance().refreshTimerText(pomodoroState.getTimer());
+		
+		pomodoroState = pomodoroState.nextState(this);
+		timerLabel.refreshTimerText(pomodoroState.getTimer());
 	}
 
 	public void switchActionState() {
-		mState = mState.switchState();
+		mState = mState.switchState(this);
+	}
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public JPanel getActionPane() {
+		return actionPane;
+	}
+
+	public JPanel getViewStatsPane() {
+		return viewStatsPane;
+	}
+
+	public JPanel getIndicatorPane() {
+		return indicatorPane;
+	}
+
+	public Button getBtnPlay() {
+		return btnPlay;
+	}
+
+	public Button getBtnPause() {
+		return btnPause;
+	}
+
+	public Button getBtnSkip() {
+		return btnSkip;
+	}
+	
+	public PomodoroTimer getTimerLabel() {
+		return timerLabel;
+	}
+
+	public PomodoroState getPomodoroState() {
+		return pomodoroState;
+	}
+
+	public ActionButtonState getmState() {
+		return mState;
+	}
+	
+	public void resetMState() {
+		this.mState = new PlayState(this);
 	}
 }
