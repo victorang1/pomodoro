@@ -11,7 +11,6 @@ public class PauseState extends ActionButtonState {
 
 	@Override
     public ActionButtonState switchState(GUIPomodoro guiPomodoro) { 
-		System.out.println("kontol");
         return new PlayState(guiPomodoro);
     }
 
