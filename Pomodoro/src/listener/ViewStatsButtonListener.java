@@ -1,7 +1,6 @@
 package listener;
 
 import java.awt.event.ActionListener;
-
 import action.ViewStatsAction;
 
 public class ViewStatsButtonListener implements ButtonListener {

@@ -47,7 +47,7 @@ public class GUIPomodoro implements Observer {
 	}
 
 	private void createComponents() {
-		timerLabel = PomodoroTimer.getInstance();
+		timerLabel = new PomodoroTimer();
 		timerLabel.addObserver(this);
 		timerLabel.addObserver(ViewStat.getInstance());
 
